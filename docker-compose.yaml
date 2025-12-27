@@ -47,6 +47,7 @@ services:
       - roboshop
     depends_on:
       - mysql
+      - cart
   web:
     image: web:v1
     container_name: web
@@ -58,3 +59,4 @@ services:
       - catalogue
       - user  
       - cart
+      - shipping
