@@ -56,6 +56,15 @@ services:
       - RABBITMQ_DEFAULT_PASS=roboshop123
     networks:
       - roboshop
+  payment:
+    image: payment:v1
+    container_name: payment
+    networks:
+      - roboshop
+    depends_on:
+      - cart
+      - user
+      - rabbitmq
   web:
     image: web:v1
     container_name: web
@@ -68,3 +77,4 @@ services:
       - user  
       - cart
       - shipping
+      - payment
