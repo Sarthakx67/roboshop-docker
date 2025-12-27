@@ -2,7 +2,7 @@
 # FROM maven AS build
 
 # RUN apt-get update -y && apt-get -y install maven
-FROM maven AS build
+FROM maven:3.9-eclipse-temurin-8 AS build
 
 WORKDIR /opt/shipping
 
@@ -14,7 +14,7 @@ RUN mvn package
 
 #Run
 
-FROM openjdk:8-jre-alpine3.9
+FROM eclipse-temurin:8-jre-alpine
 
 EXPOSE 8080
 
