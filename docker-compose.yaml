@@ -1,12 +1,21 @@
 networks:
   roboshop:
     driver: bridge
+volumes:
+  mongodb:
+  redis:
+  mysql:
+  rabbitmq:
 services:
   mongodb:
     image: sarthak6700/mongodb:v1
     container_name: mongodb
     networks:
       - roboshop
+    volumes:
+    - source: mongodb
+      target: /data/db
+      type: volume
   catalogue:
     image: sarthak6700/catalogue:v1
     container_name: catalogue
@@ -19,6 +28,10 @@ services:
     container_name: redis
     networks:
       - roboshop
+    volumes:
+    - source: redis
+      target: /data
+      type: volume
   user:
     image: sarthak6700/user:v1
     container_name: user
@@ -40,6 +53,10 @@ services:
     container_name: mysql
     networks:
       - roboshop
+    volumes:
+    - source: mysql
+      target: /var/lib/mysql
+      type: volume
   shipping:
     image: sarthak6700/shipping:v1
     container_name: shipping
@@ -56,6 +73,10 @@ services:
       - RABBITMQ_DEFAULT_PASS=roboshop123
     networks:
       - roboshop
+    volumes:
+    - source: rabbitmq
+      target: /var/lib/rabbitmq
+      type: volume
   payment:
     image: sarthak6700/payment:v1
     container_name: payment
